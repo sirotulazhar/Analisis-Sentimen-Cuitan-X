@@ -45,5 +45,3 @@ Contoh cuitan:
 3. DT.sav: Model Decision Tree yang telah disimpan.
 4. vokabuler.pkl: Vocabulary yang digunakan untuk pembentukan fitur teks.
 5. teroris.csv: File contoh untuk mencoba fitur prediksi CSV.
-
-Catatan: kedua contoh di atas merupakan contoh hasil yang diharapkan, bukan hasil pengujian yang dijamin. Prediksi aktual mengikuti keluaran model.
