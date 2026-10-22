@@ -20,8 +20,11 @@ st.write(
 
 @st.cache_resource
 def load_model():
+    with open("vokabuler.pkl", "rb") as file:
+        vocabulary = pickle.load(file)
+
     model = joblib.load("DT.sav")
-    vectorizer = joblib.load("vokabuler.pkl")
+    vectorizer = TfidfVectorizer(vocabulary=vocabulary)
 
     return model, vectorizer
 
@@ -32,53 +35,15 @@ tab1, tab2 = st.tabs([
     "Prediksi File CSV"
 ])
 
-
 with tab1:
     tweet = st.text_area("Masukkan cuitan")
-
-    with st.expander("📝 Lihat Contoh Cuitan"):
-        st.markdown("**1. Hate Speech**")
-        # st.write(
-        #     "@gemanawacita @MUIPusat @mohmahfudmd "
-        #     "@YaqutCQoumas saya sangat setuju MUI itu dibubarkan "
-        #     "biar tidak menjadi tempat berlindungnya HTI dan "
-        #     "Teroris serta Radikalis"
-        # )
-
-        if st.button("Gunakan Contoh Hate Speech"):
-            st.session_state["contoh_tweet"] = (
-                "@gemanawacita @MUIPusat @mohmahfudmd "
-                "@YaqutCQoumas saya sangat setuju MUI itu dibubarkan "
-                "biar tidak menjadi tempat berlindungnya HTI dan "
-                "Teroris serta Radikalis"
-            )
-            st.rerun()
-
-        st.markdown("**2. Non Hate Speech**")
-        # st.write(
-        #     "@CNNIndonesia Teroris KKB ga ada rencana "
-        #     "kemah di Kalteng nih???"
-        # )
-
-        if st.button("Gunakan Contoh Non Hate Speech"):
-            st.session_state["contoh_tweet"] = (
-                "@CNNIndonesia Teroris KKB ga ada rencana "
-                "kemah di Kalteng nih???"
-            )
-            st.rerun()
-
-    if "contoh_tweet" in st.session_state:
-        tweet = st.text_area(
-            "Cuitan yang dipilih",
-            value=st.session_state["contoh_tweet"],
-            key="tweet_pilihan"
-        )
 
     if st.button("Analisis Sentimen"):
         if tweet.strip():
             cleaned = preprocess(tweet)
-            features = vectorizer.transform([cleaned])
-            prediction = model.predict(features)[0]
+
+            # Sesuaikan dengan preprocessing saat training.
+            features = vectorizer.fit_transform([cleaned])
 
             labels = {
                 "Non_HS": "Non Hate Speech",
@@ -89,9 +54,10 @@ with tab1:
             result = labels[prediction]
 
             if prediction == "HS":
-                st.error(result)
+                st.error(f"{result}")
             else:
-                st.success(result)
+                st.success(f"{result}")
+
         else:
             st.warning("Masukkan cuitan terlebih dahulu.")
 
@@ -127,7 +93,9 @@ with tab2:
                             )
 
                             st.write("⏳ Melakukan ekstraksi fitur TF-IDF...")
-                            features = vectorizer.transform(data["tweet_bersih"])
+                            features = vectorizer.fit_transform(
+                                data["tweet_bersih"]
+                            )
 
                             st.write("⏳ Memprediksi sentimen...")
                             predictions = model.predict(features)
