@@ -4,7 +4,7 @@ Analisis sentimen untuk mengklasifikasikan cuitan dari platform X (Twitter) ke d
 
 # Live Demo
 
-**[Sentimen Isu Terorisme — Open App](sentimen-isu-terorisme.streamlit.app)**
+**[Sentimen Isu Terorisme — Open App](https://sentimen-isu-terorisme.streamlit.app/)**
 
 ## Fitur Utama
 
