@@ -2,7 +2,7 @@
 
 Analisis sentimen untuk mengklasifikasikan cuitan dari platform X (Twitter) ke dalam dua kategori, yaitu Hate Speech dan Non Hate Speech. Aplikasi dibangun menggunakan Python, Machine Learning, dan Streamlit sehingga pengguna dapat melakukan prediksi melalui antarmuka web.
 
-# Live Demo
+## Live Demo
 
 **[Sentimen Isu Terorisme — Open App](https://sentimen-isu-terorisme.streamlit.app/)**
 
