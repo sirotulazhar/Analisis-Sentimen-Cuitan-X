@@ -38,6 +38,44 @@ tab1, tab2 = st.tabs([
 with tab1:
     tweet = st.text_area("Masukkan cuitan")
 
+    with st.expander("📝 Lihat Contoh Cuitan"):
+        st.markdown("**1. Hate Speech**")
+        st.write(
+            "@gemanawacita @MUIPusat @mohmahfudmd "
+            "@YaqutCQoumas saya sangat setuju MUI itu dibubarkan "
+            "biar tidak menjadi tempat berlindungnya HTI dan "
+            "Teroris serta Radikalis"
+        )
+
+        if st.button("Gunakan Contoh Hate Speech"):
+            st.session_state["contoh_tweet"] = (
+                "@gemanawacita @MUIPusat @mohmahfudmd "
+                "@YaqutCQoumas saya sangat setuju MUI itu dibubarkan "
+                "biar tidak menjadi tempat berlindungnya HTI dan "
+                "Teroris serta Radikalis"
+            )
+            st.rerun()
+
+        st.markdown("**2. Non Hate Speech**")
+        st.write(
+            "@CNNIndonesia Teroris KKB ga ada rencana "
+            "kemah di Kalteng nih???"
+        )
+
+        if st.button("Gunakan Contoh Non Hate Speech"):
+            st.session_state["contoh_tweet"] = (
+                "@CNNIndonesia Teroris KKB ga ada rencana "
+                "kemah di Kalteng nih???"
+            )
+            st.rerun()
+
+    if "contoh_tweet" in st.session_state:
+        tweet = st.text_area(
+            "Cuitan yang dipilih",
+            value=st.session_state["contoh_tweet"],
+            key="tweet_pilihan"
+        )
+
     if st.button("Analisis Sentimen"):
         if tweet.strip():
             cleaned = preprocess(tweet)
