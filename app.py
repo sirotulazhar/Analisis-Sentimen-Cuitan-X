@@ -39,18 +39,23 @@ with tab1:
     tweet = st.text_area("Masukkan cuitan")
 
     with st.expander("📝 Lihat Contoh Cuitan"):
-        st.markdown("**1. Hate Speech**")
         st.write(
             "@gemanawacita @MUIPusat @mohmahfudmd "
             "@YaqutCQoumas saya sangat setuju MUI itu dibubarkan "
             "biar tidak menjadi tempat berlindungnya HTI dan "
             "Teroris serta Radikalis"
         )
-
-        st.markdown("**2. Non Hate Speech**")
         st.write(
             "@CNNIndonesia Teroris KKB ga ada rencana "
             "kemah di Kalteng nih???"
+        )
+        st.write(
+            "@susukambinggg Semoga keputusannya nnt bebas "
+            "Dugaan teroris tdk terbukti"
+        )
+        
+        st.write(
+            "@ErSatArema021 Jubir teroris bacot doang gede nyali SE upil"
         )
 
     if st.button("Analisis Sentimen"):
