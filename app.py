@@ -20,11 +20,8 @@ st.write(
 
 @st.cache_resource
 def load_model():
-    with open("vokabuler.pkl", "rb") as file:
-        vocabulary = pickle.load(file)
-
     model = joblib.load("DT.sav")
-    vectorizer = TfidfVectorizer(vocabulary=vocabulary)
+    vectorizer = joblib.load("vokabuler.pkl")
 
     return model, vectorizer
 
@@ -81,6 +78,7 @@ with tab1:
         if tweet.strip():
             cleaned = preprocess(tweet)
             features = vectorizer.transform([cleaned])
+            prediction = model.predict(features)[0]
 
             labels = {
                 "Non_HS": "Non Hate Speech",
@@ -129,9 +127,7 @@ with tab2:
                             )
 
                             st.write("⏳ Melakukan ekstraksi fitur TF-IDF...")
-                            features = vectorizer.fit_transform(
-                                data["tweet_bersih"]
-                            )
+                            features = vectorizer.transform(data["tweet_bersih"])
 
                             st.write("⏳ Memprediksi sentimen...")
                             predictions = model.predict(features)
